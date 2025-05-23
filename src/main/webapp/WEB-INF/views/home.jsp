@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -167,6 +164,15 @@
             color: #721c24;
         }
         
+        .welcome-message {
+            text-align: center;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -205,30 +211,35 @@
     </nav>
     
     <div class="container">
+        <div class="welcome-message" th:if="${error}">
+            <h3 style="color: #dc3545;">⚠️ 알림</h3>
+            <p th:text="${error}"></p>
+            <p style="margin-top: 1rem; color: #666;">MySQL 데이터베이스 연결을 확인해주세요.</p>
+        </div>
+        
+        <div class="welcome-message" th:unless="${error}">
+            <h3>🎉 KOITEX 시스템에 오신 것을 환영합니다!</h3>
+            <p>공지사항과 문의사항을 확인하고 관리할 수 있습니다.</p>
+        </div>
+        
         <div class="main-content">
             <!-- 최신 공지사항 -->
             <div class="section">
                 <h2>📢 최신 공지사항</h2>
-                <c:choose>
-                    <c:when test="${not empty recentNotices}">
-                        <ul class="item-list">
-                            <c:forEach var="notice" items="${recentNotices}">
-                                <li>
-                                    <a href="/notice/detail/${notice.id}">
-                                        ${notice.title}
-                                        <span class="view-count">(조회: ${notice.viewCount})</span>
-                                    </a>
-                                    <span class="date">
-                                        <fmt:formatDate value="${notice.createdDate}" pattern="MM-dd"/>
-                                    </span>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:when>
-                    <c:otherwise>
-                        <p>등록된 공지사항이 없습니다.</p>
-                    </c:otherwise>
-                </c:choose>
+                <div th:if="${recentNotices != null and !#lists.isEmpty(recentNotices)}">
+                    <ul class="item-list">
+                        <li th:each="notice : ${recentNotices}">
+                            <a th:href="@{/notice/detail/{id}(id=${notice.id})}">
+                                <span th:text="${notice.title}">제목</span>
+                                <span class="view-count" th:text="'(조회: ' + ${notice.viewCount} + ')'"></span>
+                            </a>
+                            <span class="date" th:text="${#temporals.format(notice.createdDate, 'MM-dd')}">날짜</span>
+                        </li>
+                    </ul>
+                </div>
+                <div th:unless="${recentNotices != null and !#lists.isEmpty(recentNotices)}">
+                    <p>등록된 공지사항이 없습니다.</p>
+                </div>
                 <div class="more-link">
                     <a href="/notice/list">더보기 →</a>
                 </div>
@@ -237,33 +248,21 @@
             <!-- 최신 문의사항 -->
             <div class="section">
                 <h2>❓ 최신 문의사항</h2>
-                <c:choose>
-                    <c:when test="${not empty recentQnAs}">
-                        <ul class="item-list">
-                            <c:forEach var="qna" items="${recentQnAs}">
-                                <li>
-                                    <a href="/qna/detail/${qna.id}">
-                                        ${qna.title}
-                                        <c:choose>
-                                            <c:when test="${qna.answered}">
-                                                <span class="status-badge answered">답변완료</span>
-                                            </c:when>
-                                            <c:otherwise>
-                                                <span class="status-badge unanswered">미답변</span>
-                                            </c:otherwise>
-                                        </c:choose>
-                                    </a>
-                                    <span class="date">
-                                        <fmt:formatDate value="${qna.createdDate}" pattern="MM-dd"/>
-                                    </span>
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:when>
-                    <c:otherwise>
-                        <p>등록된 문의사항이 없습니다.</p>
-                    </c:otherwise>
-                </c:choose>
+                <div th:if="${recentQnAs != null and !#lists.isEmpty(recentQnAs)}">
+                    <ul class="item-list">
+                        <li th:each="qna : ${recentQnAs}">
+                            <a th:href="@{/qna/detail/{id}(id=${qna.id})}">
+                                <span th:text="${qna.title}">제목</span>
+                                <span th:if="${qna.answered}" class="status-badge answered">답변완료</span>
+                                <span th:unless="${qna.answered}" class="status-badge unanswered">미답변</span>
+                            </a>
+                            <span class="date" th:text="${#temporals.format(qna.createdDate, 'MM-dd')}">날짜</span>
+                        </li>
+                    </ul>
+                </div>
+                <div th:unless="${recentQnAs != null and !#lists.isEmpty(recentQnAs)}">
+                    <p>등록된 문의사항이 없습니다.</p>
+                </div>
                 <div class="more-link">
                     <a href="/qna/list">더보기 →</a>
                 </div>
