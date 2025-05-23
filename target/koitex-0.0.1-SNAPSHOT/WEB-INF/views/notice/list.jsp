@@ -247,7 +247,7 @@
                                     </td>
                                     <td class="hide-mobile">${notice.author}</td>
                                     <td class="hide-mobile">
-                                        <fmt:formatDate value="${notice.createdDate}" pattern="MM-dd"/>
+                                        date
                                     </td>
                                     <td class="hide-mobile">${notice.viewCount}</td>
                                     <td>

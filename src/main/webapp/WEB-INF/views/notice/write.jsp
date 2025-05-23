@@ -160,7 +160,7 @@
     <div class="container">
         <div class="header">
             <h1>✏️ 공지사항 작성</h1>
-            <p>새로운 공지사항을 작성해주세요</p>
+            <p>111새로운 공지사항을 작성해주세요</p>
         </div>
         
         <div class="nav-links">
