@@ -1,0 +1,10 @@
+com\koitex\koitex\controller\HomeController.class
+com\koitex\koitex\service\QnAService.class
+com\koitex\koitex\entity\Notice.class
+com\koitex\koitex\repository\QnARepository.class
+com\koitex\koitex\repository\NoticeRepository.class
+com\koitex\koitex\controller\NoticeController.class
+com\koitex\koitex\entity\QnA.class
+com\koitex\koitex\service\NoticeService.class
+com\koitex\koitex\controller\QnAController.class
+com\koitex\koitex\KoitexApplication.class
