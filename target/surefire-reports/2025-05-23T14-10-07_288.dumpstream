@@ -1,0 +1,5 @@
+# Created at 2025-05-23T14:10:07.620
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Project\Zetta_Git\koitex\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -11,24 +11,14 @@
 	<groupId>com.koitex</groupId>
 	<artifactId>koitex</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>koitex</name>
 	<description>한국정보평가원</description>
-	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+	
 	<dependencies>
 		<!-- Spring Boot Starter Web -->
 		<dependency>
@@ -42,12 +32,6 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
-		<!-- Spring Boot Starter Thymeleaf -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		
 		<!-- MySQL Connector -->
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -55,7 +39,24 @@
 			<scope>runtime</scope>
 		</dependency>
 		
-		<!-- Spring Boot Starter Test -->
+		<!-- JSP Support -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<!-- Jakarta JSTL -->
+		<dependency>
+			<groupId>jakarta.servlet.jsp.jstl</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.web</groupId>
+			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
+		</dependency>
+		
+		<!-- Spring Boot Test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
